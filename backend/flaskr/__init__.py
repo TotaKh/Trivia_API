@@ -103,7 +103,7 @@ def create_app(test_config=None):
     })
     
 
-  @app.route("/questions", methods=['POST'])
+  @app.route('/questions', methods=['POST'])
   def add_question():
     '''
     POST endpoint to craete new question which will require 
@@ -174,7 +174,7 @@ def create_app(test_config=None):
       })
 
 
-  @app.route("/quizzes", methods=['POST'])
+  @app.route('/quizzes', methods=['POST'])
   def quiz():
     '''
     POST endpoint to get questions to play the quiz.
