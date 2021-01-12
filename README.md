@@ -108,11 +108,24 @@ npm start
 ```
 
 
-
-
 ## Errors
 
-`todo` response code , messages , error type
+Errors status codes that could occur when requests fail:
+
+- 400 (Bad Request)
+- 404 (resource not found)
+- 405 (method not allowed)
+- 422 (unprocessable)
+- 500 (internal server error)
+
+Errors return JSON with the following format:
+```
+{
+  "error": 404, 
+  "message": "resource not found", 
+  "success": false
+}
+```
 
 ### Testing
 To run the tests naviging to the `/backend` directory and running:
@@ -127,20 +140,20 @@ python test_flaskr.py
 
 List of all endpoints in the project:
 
-1. GET '/categories'
-2. GET '/questions'
-3. DELETE '/questions/<int:question_id>'
-4. POST '/questions'
-5. POST '/questions/search'
-6. GET '/categories/<int:category_id>/questions'
-7. POST '/quizzes'
+1. GET `'/categories'`
+2. GET `'/questions'`
+3. DELETE `'/questions/<int:question_id>'`
+4. POST `'/questions'`
+5. POST `'/questions/search'`
+6. GET `'/categories/<int:category_id>/questions'`
+7. POST `'/quizzes'`
 
 
-### 1. GET '/categories'
+### 1. GET `'/categories'`
 
-- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
+- Fetches a dictionary of categories with id's.
 - Request Arguments: None
-- Returns: An object with a single key, categories, that contains a object of id:
+- Returns: An object of categories, that contains a object of id.
 ```
 {
   "categories": {
@@ -151,20 +164,254 @@ List of all endpoints in the project:
     "5": "Entertainment", 
     "6": "Sports"
   }, 
-
 ```
 
-### 2. GET '/questions'
-### 3. DELETE '/questions/<int:question_id>'
-### 4. POST '/questions'
-### 5. POST '/questions/search'
-### 6. GET '/categories/<int:category_id>/questions'
-### 7. POST '/quizzes'
+### 2. GET `'/questions'`
 
+- Displays all questions in a paginate 10 questions per page.
+- Request Arguments: None
+- Returns: dictionary of the current category and questions (answer ,difficulty and category id) and number of total questions.
+```
+{
+  "categories": {
+    "1": "Science", 
+    "2": "Art", 
+    "3": "Geography", 
+    "4": "History", 
+    "5": "Entertainment", 
+    "6": "Sports"
+  }, 
+  "current_category": null, 
+  "questions": [
+    {
+      "answer": "Apollo 13", 
+      "category": 5, 
+      "difficulty": 4, 
+      "id": 2, 
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    }, 
+    {
+      "answer": "Tom Cruise", 
+      "category": 5, 
+      "difficulty": 4, 
+      "id": 4, 
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    }, 
+    {
+      "answer": "Maya Angelou", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 5, 
+      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+    }, 
+    {
+      "answer": "Edward Scissorhands", 
+      "category": 5, 
+      "difficulty": 3, 
+      "id": 6, 
+      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+    }, 
+    {
+      "answer": "Muhammad Ali", 
+      "category": 4, 
+      "difficulty": 1, 
+      "id": 9, 
+      "question": "What boxer's original name is Cassius Clay?"
+    }, 
+    {
+      "answer": "Brazil", 
+      "category": 6, 
+      "difficulty": 3, 
+      "id": 10, 
+      "question": "Which is the only team to play in every soccer World Cup tournament?"
+    }, 
+    {
+      "answer": "Uruguay", 
+      "category": 6, 
+      "difficulty": 4, 
+      "id": 11, 
+      "question": "Which country won the first ever soccer World Cup in 1930?"
+    }, 
+    {
+      "answer": "George Washington Carver", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 12, 
+      "question": "Who invented Peanut Butter?"
+    }, 
+    {
+      "answer": "Lake Victoria", 
+      "category": 3, 
+      "difficulty": 2, 
+      "id": 13, 
+      "question": "What is the largest lake in Africa?"
+    }, 
+    {
+      "answer": "The Palace of Versailles", 
+      "category": 3, 
+      "difficulty": 3, 
+      "id": 14, 
+      "question": "In which royal palace would you find the Hall of Mirrors?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 22
+}
+```
 
+### 3. DELETE `'/questions/<int:question_id>'`
 
-## Authors
-`todo`
+- Deletes a question by id .
+- Request Arguments: int question id.
+- Returns: success status and id of the deleted question.
+```
+{
+  "success": true,
+  "deleted": 6
+}
+```
+
+### 4. POST `'/questions'`
+
+- Add new question.
+- Request Arguments: str questions, str answer, int difficulty, int category.
+- Returns: success status and id of the created question.
+```
+{
+  "success": true,
+  "created": 22  
+}
+```
+
+### 5. POST `'/questions/search'`
+
+- Search for question by the given a text.
+- Request Arguments: str search term (ex:what).
+- Returns: success status, paginated questions and and number of total questions.
+```
+{
+  "questions": [
+    {
+      "answer": "Muhammad Ali", 
+      "category": 4, 
+      "difficulty": 1, 
+      "id": 9, 
+      "question": "What boxer's original name is Cassius Clay?"
+    }, 
+    {
+      "answer": "Apollo 13", 
+      "category": 5, 
+      "difficulty": 4, 
+      "id": 2, 
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    }, 
+    {
+      "answer": "Tom Cruise", 
+      "category": 5, 
+      "difficulty": 4, 
+      "id": 4, 
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    }, 
+    {
+      "answer": "Edward Scissorhands", 
+      "category": 5, 
+      "difficulty": 3, 
+      "id": 6, 
+      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+    }, 
+    {
+      "answer": "Lake Victoria", 
+      "category": 3, 
+      "difficulty": 2, 
+      "id": 13, 
+      "question": "What is the largest lake in Africa?"
+    }, 
+    {
+      "answer": "Mona Lisa", 
+      "category": 2, 
+      "difficulty": 3, 
+      "id": 17, 
+      "question": "La Giaconda is better known as what?"
+    }, 
+    {
+      "answer": "The Liver", 
+      "category": 1, 
+      "difficulty": 4, 
+      "id": 20, 
+      "question": "What is the heaviest organ in the human body?"
+    }, 
+    {
+      "answer": "Blood", 
+      "category": 1, 
+      "difficulty": 4, 
+      "id": 22, 
+      "question": "Hematology is a branch of medicine involving the study of what?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 8
+}
+```
+
+### 6. GET `'/categories/<int:category_id>/questions'`
+
+- Displays all questions by a given category  paginate 10 questions per page.
+- Request Arguments: int category id
+- Returns: success status, paginated questions.
+```
+{
+  "questions": [
+    {
+      "answer": "Escher", 
+      "category": 2, 
+      "difficulty": 1, 
+      "id": 16, 
+      "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+    }, 
+    {
+      "answer": "Mona Lisa", 
+      "category": 2, 
+      "difficulty": 3, 
+      "id": 17, 
+      "question": "La Giaconda is better known as what?"
+    }, 
+    {
+      "answer": "One", 
+      "category": 2, 
+      "difficulty": 4, 
+      "id": 18, 
+      "question": "How many paintings did Van Gogh sell in his lifetime?"
+    }, 
+    {
+      "answer": "Jackson Pollock", 
+      "category": 2, 
+      "difficulty": 2, 
+      "id": 19, 
+      "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
+    }
+  ], 
+  "success": true
+}
+```
+
+### 7. POST `'/quizzes'`
+
+- play a quiz game which displays a random question every time 
+- Request Arguments: list previous , int category id
+- Returns: success status, one random question 
+```
+{
+  "question": {
+    "answer": "Blood", 
+    "category": 1, 
+    "difficulty": 4, 
+    "id": 22, 
+    "question": "Hematology is a branch of medicine involving the study of what?"
+  }, 
+  "success": true
+}
+```
+
 
 ## Acknowledgements
 `todo`

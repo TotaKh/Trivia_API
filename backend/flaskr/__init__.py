@@ -241,12 +241,12 @@ def create_app(test_config=None):
       'message': "unprocessable"
     }),422
 
-    @app.errorhandler(Exception)
+    @app.errorhandler(500)
     def exception_handler(error):
       return jsonify({
         'success': False,
         'error': 500,
-        'message': "Something went wrong"
+        'message': "internal server error"
       }), 500
 
 
