@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Udacity is invested in creating bonding experiences for its employees and students. A bunch of team members got the idea to hold trivia on a regular basis and created a  webpage to manage the trivia app and play the game. 
+Udacity is invested in creating bonding experiences for its employees and students. A bunch of team members got the idea to hold trivia on a regular basis and created a webpage to manage the trivia app and play the game. 
 
 The main features of the application are:
 1) Display questions it's shows the question, category and difficulty rating by default and can show/hide the answer. 
@@ -147,6 +147,7 @@ List of all endpoints in the project:
 5. POST `'/questions/search'`
 6. GET `'/categories/<int:category_id>/questions'`
 7. POST `'/quizzes'`
+
 
 
 ### 1. GET `'/categories'`
@@ -356,7 +357,7 @@ List of all endpoints in the project:
 ### 6. GET `'/categories/<int:category_id>/questions'`
 
 - Displays all questions by a given category  paginate 10 questions per page.
-- Request Arguments: int category id
+- Request Arguments: int category id.
 - Returns: success status, paginated questions.
 ```
 {
@@ -396,9 +397,9 @@ List of all endpoints in the project:
 
 ### 7. POST `'/quizzes'`
 
-- play a quiz game which displays a random question every time 
-- Request Arguments: list previous , int category id
-- Returns: success status, one random question 
+- play a quiz game which displays a random question every time.
+- Request Arguments: list previous , int category id.
+- Returns: success status, one random question.
 ```
 {
   "question": {
@@ -411,9 +412,4 @@ List of all endpoints in the project:
   "success": true
 }
 ```
-
-
-## Acknowledgements
-`todo`
-
 
